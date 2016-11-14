@@ -1,12 +1,14 @@
 #!/bin/sh
 
 SETTINGS=""
+MAKEMIGRATIONS=false
 
 usage(){
     echo ""
     echo "./reset_migrations.sh"
     echo "\t-h --help"
     echo "\t--settings=<your settings file>"
+    echo "\t--makemigrations, if you need to create migrations"
     echo ""
 }
 
@@ -27,12 +29,16 @@ while [ "$1" != "" ]; do
         --settings)
             SETTINGS=$VALUE
             ;;
+        --makemigrations)
+            MAKEMIGRATIONS=true
+            ;;
         *)
             echo "ERROR: unknown parameter \"$PARAM\""
             usage
             exit 1
             ;;
     esac
+    shift
 done
 
 if [ -z $SETTINGS ]
@@ -49,14 +55,16 @@ echo ">> Deleting database migrations..."
 sudo -u postgres psql -c "DELETE FROM django_migrations;" -d new_test_database || error_exit "Cannot delete database migrations! Aborting"
 echo ">> Done"
 
-echo ">> Erase all migrations..."
-find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
-find . -path "*/migrations/*.pyc"  -delete
-echo ">> Done"
+if [ "$MAKEMIGRATIONS" = true ] ; then
+    echo ">> Erase all migrations..."
+    find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+    find . -path "*/migrations/*.pyc"  -delete
+    echo ">> Done"
 
-echo ">> Making migrations..."
-python manage.py makemigrations || error_exit "Cannot make migrations! Aborting"
-echo ">> Done"
+    echo ">> Making migrations..."
+    python manage.py makemigrations || error_exit "Cannot make migrations! Aborting"
+    echo ">> Done"
+fi
 
 echo ">> Resetting the migrations for the 'built-in' apps..."
 python manage.py migrate --fake || error_exit "Cannot reset migrations! Aborting"
