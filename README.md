@@ -1,7 +1,7 @@
 Reset Django migrations script
 ==========
 
-You work on Django project? You always wanted 'reset_migrations' manage command? Your migrations alwais f\*cked up? You work with bunch of people and get tired of merging f\*cking migrations? You have a lot of f\*cking migrations and tired of waiting till they all will be applied?
+You work on Django project? You always wanted 'reset_migrations' manage command? Your migrations always f\*cked up? You work with bunch of people and get tired of merging f\*cking migrations? You have a lot of f\*cking migrations and tired of waiting till they all will be applied?
 
 **This script is for you and your team!**
 
