@@ -23,5 +23,6 @@ Clean up migrations with just one press.
     ./reset_migrations.sh
     	-h --help
     	--settings=<your settings file>
+        --makemigrations, if you need to create migrations 
 
 ```
