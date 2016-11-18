@@ -52,7 +52,7 @@ echo "Starting ..."
 export DJANGO_SETTINGS_MODULE=$SETTINGS
 
 echo ">> Deleting database migrations..."
-sudo -u postgres psql -c "DELETE FROM django_migrations;" -d new_test_database || error_exit "Cannot delete database migrations! Aborting"
+echo "DELETE FROM django_migrations;" | python manage.py dbshell
 echo ">> Done"
 
 if [ "$MAKEMIGRATIONS" = true ] ; then
