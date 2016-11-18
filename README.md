@@ -11,6 +11,7 @@ Clean up migrations with just one press.
 * You do not need to restore schema or data from database.
 * This script is written on pure Bourne shell
 * It is simple
+* Database independent - script not using any db specific commands
 
 ##### Usage
 ```bash
